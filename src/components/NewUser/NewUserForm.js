@@ -1,5 +1,6 @@
 import React, {useState} from "react";
 import './NewUserForm.css'
+import Card from "../UI/Card";
 
 const NewUserForm = (props) => {
 
@@ -16,12 +17,21 @@ const NewUserForm = (props) => {
     }
 
 
-
-
+    const submitHandler = (event) => {
+        event.preventDefault()
+        const userData = {
+            id: Math.random().toString(),
+            name: enteredUser,
+            age: enteredAge
+        }
+        props.onAddUser(userData)
+        setEnteredAge('')
+        setEnteredUser('')
+    }
 
     return (
-        <div>
-            <form>
+        <Card>
+            <form onSubmit={submitHandler} className='new-user'>
                 <div>
                     <div>
                         <label>Username</label><br/>
@@ -36,7 +46,7 @@ const NewUserForm = (props) => {
                     </div>
                 </div>
             </form>  
-        </div>
+        </Card>
     )
 
 }

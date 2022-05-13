@@ -1,6 +1,7 @@
 import React from 'react'
 import UserItem from './UserItem'
-
+import Card from '../UI/Card'
+import './UserList.css'
 
 
 const UserList = (props) => {
@@ -10,14 +11,17 @@ const UserList = (props) => {
     }
 
     return (
-        <ul>
-            {props.users.map((user) => (
-                <UserItem
-                    key={user.id}
-                    user={user}
-                />
-            ))}
-       </ul>
+        <Card>
+             <ul className='user-list'>
+                {props.users.map((user) => (
+                    <UserItem
+                        key={user.id}
+                        user={user}
+                    />
+                ))}
+            </ul>
+        </Card>
+       
     )
     
 

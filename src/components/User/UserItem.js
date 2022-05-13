@@ -1,11 +1,11 @@
 import React from "react";
-
+import './UserItem.css'
 
 
 const UserItem = (props) => {
 
     return (
-        <div>
+        <div className='user-item'>
             {props.user.name} ({props.user.age} years old)
         </div>
     )

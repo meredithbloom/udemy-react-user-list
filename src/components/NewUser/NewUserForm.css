@@ -1,0 +1,39 @@
+.new-user input {
+    width: 95%;
+    margin: .5em;
+}
+
+.new-user label {
+    font-weight: bold;
+    padding: 1rem;
+    margin-top: 5px;
+}
+
+.new-user button {
+    margin: 10px 1rem 10px 10px;
+    font: inherit;
+    cursor: pointer;
+    padding: .3rem;
+    border: 1px solid #40005d;
+    background-color: #571277;
+    color: white;
+    font-size: small;
+    width: 25%;
+}
+
+.new-user button:hover,
+.new-user button:active {
+    background-color: #510674;
+    border-color: #510674;
+}
+
+.new-user button.alternative {
+    color: #220131;
+    border-color: transparent;
+    background-color: transparent;
+}
+
+.new-user button.alternative:hover,
+.new-user button.alternative:active {
+    background-color: #ddb3f8;
+}
