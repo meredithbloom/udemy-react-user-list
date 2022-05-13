@@ -15,9 +15,12 @@ const App = () => {
   const [users, setUsers] = useState(DUMMY_USERS)
   
   
-  const addUserHandler = (user) => {
+  const addUserHandler = (uName, uAge) => {
     setUsers(prevUsers => {
-      return [user, ...prevUsers]
+      return [
+        ...prevUsers,
+        { name: uName, age: uAge, id:Math.random().toString() }
+      ]
     })
   }
   

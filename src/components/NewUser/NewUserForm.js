@@ -1,11 +1,13 @@
 import React, {useState} from "react";
 import './NewUserForm.css'
 import Card from "../UI/Card";
+import ErrorModal from './ErrorModal'
 
 const NewUserForm = (props) => {
 
     const [enteredUser, setEnteredUser] = useState('')
     const [enteredAge, setEnteredAge] = useState('')
+    const [error, setError] = useState()
 
 
     const handleUserChange = (event) => {
@@ -17,36 +19,61 @@ const NewUserForm = (props) => {
     }
 
 
-    const submitHandler = (event) => {
+    const addUserHandler = (event) => {
         event.preventDefault()
-        const userData = {
-            id: Math.random().toString(),
-            name: enteredUser,
-            age: enteredAge
+        if (enteredUser.trim().length === 0 || enteredAge.trim().length === 0) {
+            setError({
+                title: 'Invalid input',
+                message: 'Please enter a valid name and age (non-empty values).',
+            });
+            return;
         }
-        props.onAddUser(userData)
+        if (+enteredAge < 1) {
+            setError({
+                title: 'Invalid age',
+                message: 'Please enter a valid age (> 0).',
+            });
+            return;
+        }
+        props.onAddUser(enteredUser, enteredAge)
+        setEnteredAge('')
+        setEnteredUser('')
+    }
+
+    const errorHandler = () => {
+        setError(null)
         setEnteredAge('')
         setEnteredUser('')
     }
 
     return (
-        <Card>
-            <form onSubmit={submitHandler} className='new-user'>
-                <div>
+        <div>
+            {error && (
+                <ErrorModal
+                    title={error.title}
+                    message={error.message}
+                    onConfirm={errorHandler}
+                />
+            )}
+            
+            <Card>
+                <form onSubmit={addUserHandler} className='new-user'>
                     <div>
-                        <label>Username</label><br/>
-                        <input type="text" value={enteredUser} onChange={handleUserChange}/>
+                        <div>
+                            <label>Username</label><br/>
+                            <input type="text" value={enteredUser} onChange={handleUserChange}/>
+                        </div>
+                        <div>
+                            <label>Age (Years)</label><br/>
+                            <input type="number" value={enteredAge} onChange={handleAgeChange}/>
+                        </div>
+                        <div>
+                            <button type="submit">Add User</button>
+                        </div>
                     </div>
-                    <div>
-                        <label>Age (Years)</label><br/>
-                        <input type="number" value={enteredAge} onChange={handleAgeChange}/>
-                    </div>
-                    <div>
-                        <button type="submit">Add User</button>
-                    </div>
-                </div>
-            </form>  
-        </Card>
+                </form>  
+            </Card>
+        </div>
     )
 
 }
