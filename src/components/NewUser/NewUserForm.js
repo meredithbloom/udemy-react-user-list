@@ -1,9 +1,12 @@
-import React, {useState} from "react";
+import React, {useState, useRef} from "react";
 import './NewUserForm.css'
 import Card from "../UI/Card";
 import ErrorModal from './ErrorModal'
+import Wrapper from "../Helpers/Wrapper";
 
 const NewUserForm = (props) => {
+    const nameInputRef = useRef()
+    const ageInputRef = useRef()
 
     const [enteredUser, setEnteredUser] = useState('')
     const [enteredAge, setEnteredAge] = useState('')
@@ -47,7 +50,7 @@ const NewUserForm = (props) => {
     }
 
     return (
-        <div>
+        <>
             {error && (
                 <ErrorModal
                     title={error.title}
@@ -61,11 +64,19 @@ const NewUserForm = (props) => {
                     <div>
                         <div>
                             <label>Username</label><br/>
-                            <input type="text" value={enteredUser} onChange={handleUserChange}/>
+                            <input
+                                type="text"
+                                value={enteredUser}
+                                onChange={handleUserChange}
+                            />
                         </div>
                         <div>
                             <label>Age (Years)</label><br/>
-                            <input type="number" value={enteredAge} onChange={handleAgeChange}/>
+                            <input
+                                type="number"
+                                value={enteredAge}
+                                onChange={handleAgeChange}
+                            />
                         </div>
                         <div>
                             <button type="submit">Add User</button>
@@ -73,7 +84,7 @@ const NewUserForm = (props) => {
                     </div>
                 </form>  
             </Card>
-        </div>
+        </>
     )
 
 }
