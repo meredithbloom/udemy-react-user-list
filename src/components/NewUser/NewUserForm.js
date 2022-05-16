@@ -8,45 +8,49 @@ const NewUserForm = (props) => {
     const nameInputRef = useRef()
     const ageInputRef = useRef()
 
-    const [enteredUser, setEnteredUser] = useState('')
-    const [enteredAge, setEnteredAge] = useState('')
+    // const [enteredUser, setEnteredUser] = useState('')
+    // const [enteredAge, setEnteredAge] = useState('')
     const [error, setError] = useState()
 
 
-    const handleUserChange = (event) => {
-        setEnteredUser(event.target.value)
-    }
+    // const handleUserChange = (event) => {
+    //     setEnteredUser(event.target.value)
+    // }
 
-    const handleAgeChange = (event) => {
-        setEnteredAge(event.target.value)
-    }
+    // const handleAgeChange = (event) => {
+    //     setEnteredAge(event.target.value)
+    // }
 
 
     const addUserHandler = (event) => {
         event.preventDefault()
-        if (enteredUser.trim().length === 0 || enteredAge.trim().length === 0) {
+        const enteredName = nameInputRef.current.value
+        const enteredUserAge = ageInputRef.current.value
+        if (enteredName.trim().length === 0 || enteredUserAge.trim().length === 0) {
             setError({
                 title: 'Invalid input',
                 message: 'Please enter a valid name and age (non-empty values).',
             });
             return;
         }
-        if (+enteredAge < 1) {
+        if (+enteredUserAge < 1) {
             setError({
                 title: 'Invalid age',
                 message: 'Please enter a valid age (> 0).',
             });
             return;
         }
-        props.onAddUser(enteredUser, enteredAge)
-        setEnteredAge('')
-        setEnteredUser('')
+        props.onAddUser(enteredName, enteredUserAge)
+        nameInputRef.current.value = ''
+        ageInputRef.current.value = '' 
+        // setEnteredAge('')
+        // setEnteredUser('')
     }
 
     const errorHandler = () => {
         setError(null)
-        setEnteredAge('')
-        setEnteredUser('')
+        // setEnteredAge('')
+        // setEnteredUser('')
     }
 
     return (
@@ -65,17 +69,21 @@ const NewUserForm = (props) => {
                         <div>
                             <label>Username</label><br/>
                             <input
+                                id="username"
                                 type="text"
-                                value={enteredUser}
-                                onChange={handleUserChange}
+                                // value={enteredUserName}
+                                // onChange={handleUserChange}
+                                ref={nameInputRef}
                             />
                         </div>
                         <div>
                             <label>Age (Years)</label><br/>
                             <input
+                                id="age"
                                 type="number"
-                                value={enteredAge}
-                                onChange={handleAgeChange}
+                                // value={enteredUserAge}
+                                // onChange={handleAgeChange}
+                                ref={ageInputRef}
                             />
                         </div>
                         <div>
